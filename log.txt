@@ -1,0 +1,1 @@
+failed to load image: /tmp/allegro-20200213-62887-1qlq0oc/allegro-5.2.6.0/src/bitmap_io.c
