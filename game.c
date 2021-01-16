@@ -221,8 +221,8 @@ void game_change_scene(Scene next_scene) {
     game_log("Change scene from %s to %s",
         active_scene.name ? active_scene.name : "(unnamed)",
         next_scene.name ? next_scene.name : "(unnamed)");
-    //if (active_scene.destroy)
-    //    active_scene.destroy();
+    if (active_scene.destroy)
+        active_scene.destroy();
     game_log("wee\n");
     active_scene = next_scene;
     if (active_scene.initialize)

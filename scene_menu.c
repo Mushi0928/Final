@@ -19,7 +19,7 @@
 // TODO: More variables and functions that will only be accessed
 // inside this scene. They should all have the 'static' prefix.
 
-static const char* txt_title = "Space Shooter";
+static const char* txt_title = "Wizard's Request";
 static const char* txt_info = "Press enter key to start";
 static ALLEGRO_BITMAP* img_background;
 // [HACKATHON 3-1]
@@ -36,7 +36,7 @@ static void destroy(void);
 static void on_key_down(int keycode);
 
 static void init(void) {
-    img_background = load_bitmap_resized("Resource/main-bg.jpg", SCREEN_W, SCREEN_H);
+    img_background = load_bitmap_resized("Resource/wizard_tower.jpg", SCREEN_W, SCREEN_H);
     // [HACKATHON 3-4]
     // TODO: Load settings images.
     // Uncomment and fill in the code below.
@@ -44,7 +44,7 @@ static void init(void) {
     img_settings2 = al_load_bitmap("Resource/settings2.png");
     // Can be moved to shared_init to decrease loading time.
     bgm = load_audio("Resource/S31-Night Prowler.ogg");
-    bgm_id = play_bgm(bgm, 1);
+    play_bgm(bgm,&bgm_id, 1);
     game_log("Menu scene initialized");
 }
 
@@ -65,6 +65,7 @@ static void draw(void) {
 }
 
 static void destroy(void) {
+    stop_bgm(&bgm_id);
     al_destroy_sample(bgm);
     al_destroy_bitmap(img_background);
     // [HACKATHON 3-6]
@@ -72,7 +73,7 @@ static void destroy(void) {
     // Uncomment and fill in the code below.
     al_destroy_bitmap(img_settings);
     al_destroy_bitmap(img_settings2);
-    stop_bgm(bgm_id);
+    
     game_log("Menu scene destroyed");
 }
 
