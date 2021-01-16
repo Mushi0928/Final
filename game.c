@@ -19,6 +19,7 @@ const int SCREEN_H = 1200;
 const int RESERVE_SAMPLES = 10;
 Scene active_scene;
 bool key_state[ALLEGRO_KEY_MAX];
+int high_score[5];
 bool *mouse_state;
 int mouse_x, mouse_y;
 
@@ -124,6 +125,14 @@ static void allegro5_init(void) {
 
     // Start the timer to update and draw the game.
     al_start_timer(game_update_timer);
+
+    //Read highscores from file
+    FILE *fin;
+    fin = fopen("highscores.txt","r");
+    for(int i = 0;i<5;i++){
+        fscanf(fin,"%d",&high_score[i]);
+    }
+    fclose(fin);
 }
 
 static void game_start_event_loop(void) {
@@ -210,6 +219,12 @@ static void game_destroy(void) {
     // Destroy everything you have created.
     // Free the memories allocated by malloc or allegro functions.
     // Destroy shared resources.
+    FILE *fout;
+    fout = fopen("highscores.txt","w");
+    for(int i = 0;i<5;i++){
+        fprintf(fout,"%d\n",high_score[i]);
+    }
+    fclose(fout);
     shared_destroy();
     al_destroy_timer(game_update_timer);
     al_destroy_event_queue(game_event_queue);

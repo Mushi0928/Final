@@ -52,6 +52,7 @@ extern const int SCREEN_H;
 // At most 4 audios can be played at a time.
 extern const int RESERVE_SAMPLES;
 
+extern int high_score[5];
 /* Input states */
 
 // The active scene. Events will be triggered through function pointers.

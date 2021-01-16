@@ -19,12 +19,10 @@
 // TODO: More variables and functions that will only be accessed
 // inside this scene. They should all have the 'static' prefix.
 
-static const char* txt_title = "Wizard's Request";
+static const char* txt_title = "Wizard's";
+static const char* txt_title_2 = "   Request";
 static const char* txt_info = "Press enter key to start";
 static ALLEGRO_BITMAP* img_background;
-// [HACKATHON 3-1]
-// TODO: Declare 2 variables for storing settings images.
-// Uncomment and fill in the code below.
 static ALLEGRO_BITMAP* img_settings;
 static ALLEGRO_BITMAP* img_settings2;
 static ALLEGRO_SAMPLE* bgm;
@@ -44,7 +42,7 @@ static void init(void) {
     img_settings2 = al_load_bitmap("Resource/settings2.png");
     // Can be moved to shared_init to decrease loading time.
     bgm = load_audio("Resource/S31-Night Prowler.ogg");
-    play_bgm(bgm,&bgm_id, 1);
+    play_bgm(bgm,&bgm_id, volume/100.0);
     game_log("Menu scene initialized");
 }
 
@@ -60,7 +58,8 @@ static void draw(void) {
         al_draw_bitmap(img_settings2, SCREEN_W - 48, 10, 0);
     else
         al_draw_bitmap(img_settings, SCREEN_W - 48, 10, 0);
-    al_draw_text(font_pirulen_32, al_map_rgb(255, 255, 255), SCREEN_W / 2, 30, ALLEGRO_ALIGN_CENTER, txt_title);
+    al_draw_text(font_pirulen_120, al_map_rgb(255, 255, 255),100, 100, 0, txt_title);
+    al_draw_text(font_pirulen_120, al_map_rgb(255, 255, 255),100, 220, 0, txt_title_2);
     al_draw_text(font_pirulen_24, al_map_rgb(255, 255, 255), 20, SCREEN_H - 50, 0, txt_info);
 }
 
@@ -68,9 +67,6 @@ static void destroy(void) {
     stop_bgm(&bgm_id);
     al_destroy_sample(bgm);
     al_destroy_bitmap(img_background);
-    // [HACKATHON 3-6]
-    // TODO: Destroy the 2 settings images.
-    // Uncomment and fill in the code below.
     al_destroy_bitmap(img_settings);
     al_destroy_bitmap(img_settings2);
     

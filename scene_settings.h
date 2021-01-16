@@ -6,6 +6,22 @@
 #define SCENE_SETTINGS_H
 #include "game.h"
 
+extern int volume;
+extern int SE;
+extern int difficulty;
+
+typedef enum options{
+    OPTION_VOLUME,
+    OPTION_SE,
+    OPTION_DIFFICULTY,
+}Options;
+
+typedef struct _option_rect{
+    char Title[15];
+    float x,y;
+    float w,h;
+    bool focused;
+}Option_Rect;
 // Return a Scene that has function pointers pointing to the
 // functions that will react to the corresponding events.
 Scene scene_settings_create(void);

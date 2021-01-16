@@ -3,6 +3,8 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include "game.h"
+#include "scene_settings.h"
+#include "scene_highscores.h"
 #include "utility.h"
 #include "scene_menu.h"
 #include "shared.h"
@@ -111,7 +113,7 @@ static void init(void) {
     bgm = load_audio("Resource/misty_dungeon.wav");
     dying = load_audio("Resource/dying_sound.wav");
     game_log("Start scene initialized");
-    play_bgm(bgm,&bgm_id, 1);
+    play_bgm(bgm,&bgm_id, volume/100.0);
 }
 
 static void update(void) {
@@ -125,7 +127,7 @@ static void update(void) {
         mage.momentum_x  = 5;
     mage.vx = temp_vx + mage.momentum_x;
     mage.y += mage.vy * 4;
-    mage.x += mage.vx * 4;
+    mage.x += mage.vx * 6;
     if(mage.momentum_x > 0)mage.momentum_x -= 1;
     else if(mage.momentum_x < 0)mage.momentum_x += 1;
     else mage.momentum_x = 0;
@@ -187,11 +189,13 @@ static void update(void) {
     }
     //Spawning skeleton
     if(now - last_spawn_timestamp >= spawn_delay){
-        for(i = 0;i<MAX_ENEMY;i++){
-            if(enemies[i].hidden){
-                init_skeleton(&enemies[i]);
-                last_spawn_timestamp = now;
-                break;
+        for(int T = 0;T<rand()%(difficulty+1)+1;T++){
+            for(i = 0;i<MAX_ENEMY;i++){
+                if(enemies[i].hidden){
+                    init_skeleton(&enemies[i]);
+                    last_spawn_timestamp = now;
+                    break;
+                }
             }
         }
     }
@@ -236,7 +240,7 @@ static void update(void) {
     if(mage.hp <= 0){
         ended = true;
         stop_bgm(&bgm_id);
-        al_play_sample(dying,1,0,1,ALLEGRO_PLAYMODE_ONCE,&dying_id);
+        al_play_sample(dying,SE/100.0,0,1,ALLEGRO_PLAYMODE_ONCE,&dying_id);
     }
 }
 static void update_skeleton(Enemy* skeleton){
@@ -379,8 +383,18 @@ static void on_key_down(int keycode) {
         draw_gizmos = !draw_gizmos;
     if (keycode == ALLEGRO_KEY_BACKSPACE)
         game_change_scene(scene_menu_create());
-    if (ended && keycode == ALLEGRO_KEY_ENTER)
-        game_change_scene(scene_menu_create());
+    if (ended && keycode == ALLEGRO_KEY_ENTER){
+        for(int i = 0;i<5;i++){
+            if(Score > high_score[i]){
+                for(int j = 4;j > i;j--){
+                    high_score[j] = high_score[j-1];
+                }
+                high_score[i] = Score;
+                break;
+            }
+        }
+        game_change_scene(scene_highscores_create());
+    }
 }
 static void init_mage(){
     mage.vx = 0;
@@ -427,9 +441,9 @@ static void init_skeleton(Enemy* skeleton){
     (*skeleton).vy = 0;
     (*skeleton).speed = 2 + ((float)(rand()%10))/10;
     (*skeleton).direction = LEFT;
-    (*skeleton).max_hp = 100;
+    (*skeleton).max_hp = 50 + difficulty*10;
     (*skeleton).hp = (*skeleton).max_hp;
-    (*skeleton).attack = 5;
+    (*skeleton).attack = (difficulty>=2)?10:5;
     (*skeleton).sprite = img_skeleton;
     (*skeleton).enemy_type = ENEMY_SKELETON;
     (*skeleton).last_hit_timestamp = 0.0f;

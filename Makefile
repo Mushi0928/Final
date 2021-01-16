@@ -3,7 +3,7 @@ ALLEGRO_FLAGS := $(shell pkg-config --cflags --libs $(ALLEGRO_LIBRARIES)) -lalle
 
 CC := gcc
 OUT:= main
-MAIN:= main.c game.c utility.c scene_menu.c scene_settings.c scene_start.c shared.c 
+MAIN:= main.c game.c utility.c scene_menu.c scene_settings.c scene_start.c scene_highscores.c shared.c 
 
 all: $(MAIN)
 	$(CC) -o $(OUT) $(MAIN) $(ALLEGRO_FLAGS)
