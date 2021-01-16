@@ -15,7 +15,9 @@ typedef enum mage_dir{
     ATTACK_LEFT,
     DIED,
 }Mage_Direction;
-
+typedef enum enemy_type{
+    ENEMY_SKELETON,
+}Enemy_Type;
 typedef struct mage{
     //The cneter coordinate of mage
     float x,y;
@@ -25,13 +27,27 @@ typedef struct mage{
     float sprite_w,sprite_h;
     //The velocity in x,y axes
     float vx,vy;
+    int momentum_x;
     //The direction and pose the mage are in
     int direction;
     //The HP and ATK value of the mage
-    int hp,attack;
+    int hp,max_hp,attack;
     //Spritesheet of the mage
     ALLEGRO_BITMAP* spritesheet;
 }Mage;
+typedef struct {
+    float x,y;
+    float w,h;
+    float sprite_w,sprite_h;
+    float vx,vy;
+    float speed;
+    int direction;
+    int hp,max_hp,attack;
+    ALLEGRO_BITMAP* sprite;
+    int enemy_type;
+    float last_hit_timestamp;
+    bool hidden;
+}Enemy;
 
 typedef struct {
     // The center coordinate of the image.
@@ -47,9 +63,12 @@ typedef struct {
 } MovableObject;
 
 typedef struct {
+    //the coordinate of the left upper corner of the collider
     float x,y;
+    //the width and height of the collider
     float w,h;
-}Block;
+    bool hidden;
+}BlockCollider;
 // Return a Scene that has function pointers pointing to the
 // functions that will react to the corresponding events.
 Scene scene_start_create(void);

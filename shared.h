@@ -9,6 +9,8 @@
 
 // TODO: More shared resources or data that needed to be accessed
 // across different scenes. initialize the value in 'shared.c'.
+extern ALLEGRO_FONT* font_pirulen_180;
+extern ALLEGRO_FONT* font_pirulen_60;
 extern ALLEGRO_FONT* font_pirulen_32;
 extern ALLEGRO_FONT* font_pirulen_24;
 

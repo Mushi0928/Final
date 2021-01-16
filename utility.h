@@ -15,11 +15,11 @@
 // Supports .wav, .flac, .ogg, .it, .mod, .s3m, .xm.
 ALLEGRO_SAMPLE* load_audio(const char* filename);
 // Play audio once.
-ALLEGRO_SAMPLE_ID play_audio(ALLEGRO_SAMPLE* sample, float volume);
+void play_audio(ALLEGRO_SAMPLE* sample, ALLEGRO_SAMPLE_ID* id, float volume);
 // Play audio loop.
-ALLEGRO_SAMPLE_ID play_bgm(ALLEGRO_SAMPLE* sample, float volume);
+void play_bgm(ALLEGRO_SAMPLE* sample, ALLEGRO_SAMPLE_ID* id, float volume);
 // Stop audio.
-void stop_bgm(ALLEGRO_SAMPLE_ID sample);
+void stop_bgm(ALLEGRO_SAMPLE_ID* sample);
 // Load font and check if failed.
 // Supports .ttf.
 ALLEGRO_FONT* load_font(const char* filename, int size);
