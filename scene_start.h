@@ -31,22 +31,27 @@ typedef struct mage{
     //The direction and pose the mage are in
     int direction;
     //The HP and ATK value of the mage
-    int hp,max_hp,attack;
+    int hp,max_hp,mp,max_mp,attack;
     //Spritesheet of the mage
     ALLEGRO_BITMAP* spritesheet;
+    float last_hit_timestamp;
 }Mage;
 typedef struct {
     float x,y;
     float w,h;
     float sprite_w,sprite_h;
+    float sprite_x,sprite_y;
     float vx,vy;
+    int momentum_x;
     float speed;
     int direction;
     int hp,max_hp,attack;
     ALLEGRO_BITMAP* sprite;
     int enemy_type;
     float last_hit_timestamp;
+    float last_anim_timestamp;
     bool hidden;
+    int animationFrame;
 }Enemy;
 
 typedef struct {
@@ -69,6 +74,12 @@ typedef struct {
     float w,h;
     bool hidden;
 }BlockCollider;
+typedef struct {
+    bool hidden;
+    float x,y;
+    float radius;
+    float dR,ddR;
+}Ultimate;
 // Return a Scene that has function pointers pointing to the
 // functions that will react to the corresponding events.
 Scene scene_start_create(void);

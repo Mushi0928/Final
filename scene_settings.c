@@ -48,6 +48,7 @@ static void init(void){
 static void draw(void) {
     al_draw_bitmap(img_background,0,0,0);
     al_draw_text(font_pirulen_32, al_map_rgb(255, 255, 255), SCREEN_W / 2, 30, ALLEGRO_ALIGN_CENTER, "- SETTINGS -");
+    al_draw_text(font_pirulen_24, al_map_rgb(255, 255, 255), SCREEN_W-20,20,ALLEGRO_ALIGN_RIGHT,"<<Backspace");
     
     al_draw_text(font_pirulen_32,al_map_rgb(0,0,0),option[0].x-20,option[0].y+10,ALLEGRO_ALIGN_RIGHT,option[0].Title);
     al_draw_textf(font_pirulen_32,al_map_rgb(0,0,0),option[0].x+option[0].w/2,option[0].y+12,ALLEGRO_ALIGN_CENTER,"%d",volume);

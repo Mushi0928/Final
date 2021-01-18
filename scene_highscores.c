@@ -22,6 +22,7 @@ static void draw(){
     for(int i = 0;i<5;i++){
         al_draw_textf(font_pirulen_32,al_map_rgb(0,0,0),600,200+100*i,ALLEGRO_ALIGN_LEFT,"%d. : %d",i+1,high_score[i]);
     }
+    al_draw_text(font_pirulen_32,al_map_rgb(0, 0, 0),SCREEN_W,SCREEN_H-160,ALLEGRO_ALIGN_RIGHT,"ENTER>>");
     
 }
 static void on_key_down(int keycode){
